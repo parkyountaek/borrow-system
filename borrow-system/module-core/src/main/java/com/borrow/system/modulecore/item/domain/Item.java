@@ -1,4 +1,4 @@
-package com.borrow.system.modulecore.item;
+package com.borrow.system.modulecore.item.domain;
 
 import jakarta.persistence.*;
 
@@ -18,4 +18,6 @@ public class Item {
     private String img;
     @Column(name = "QR_IMG")
     private String qrImg;
+    @Column(name = "IS_BORROW")
+    private boolean isBorrow;
 }
