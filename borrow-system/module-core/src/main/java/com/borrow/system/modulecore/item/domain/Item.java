@@ -1,10 +1,11 @@
 package com.borrow.system.modulecore.item.domain;
 
+import com.borrow.system.modulecore.audit.UpdateBaseEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "B_ITEM")
-public class Item {
+public class Item extends UpdateBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
