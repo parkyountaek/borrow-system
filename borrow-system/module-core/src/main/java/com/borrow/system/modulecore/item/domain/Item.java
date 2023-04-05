@@ -1,6 +1,7 @@
 package com.borrow.system.modulecore.item.domain;
 
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
+import com.borrow.system.modulecore.category.domain.Category;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,4 +22,7 @@ public class Item extends UpdateBaseEntity {
     private String qrImg;
     @Column(name = "IS_BORROW")
     private boolean isBorrow;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 }

@@ -23,4 +23,6 @@ public class User extends UpdateBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
     private Role role;
+
+
 }
