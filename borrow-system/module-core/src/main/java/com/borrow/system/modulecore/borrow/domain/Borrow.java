@@ -1,6 +1,8 @@
 package com.borrow.system.modulecore.borrow.domain;
 
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
+import com.borrow.system.modulecore.item.domain.Item;
+import com.borrow.system.modulecore.user.domain.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,4 +17,10 @@ public class Borrow extends UpdateBaseEntity {
     private LocalDateTime startBorrowDtm;
     @Column(name = "END_BORROW_DTM")
     private LocalDateTime endBorrowDtm;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 }
