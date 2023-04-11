@@ -1,3 +1,4 @@
 rootProject.name = 'borrow-system'
 include 'module-core'
+include 'app-user-management'
 
