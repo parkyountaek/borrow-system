@@ -1,4 +1,4 @@
-package com.borrow.system.modulecore.user.domain.repository;
+package com.borrow.system.modulecore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
