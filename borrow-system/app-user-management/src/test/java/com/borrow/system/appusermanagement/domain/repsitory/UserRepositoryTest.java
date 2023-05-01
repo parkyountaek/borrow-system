@@ -1,5 +1,6 @@
 package com.borrow.system.appusermanagement.domain.repsitory;
 
+import com.borrow.system.appusermanagement.persistence.UserRepository;
 import com.borrow.system.modulecore.user.domain.Role;
 import com.borrow.system.modulecore.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
