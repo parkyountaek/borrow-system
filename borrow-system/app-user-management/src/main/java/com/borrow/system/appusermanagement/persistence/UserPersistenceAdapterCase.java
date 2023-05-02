@@ -4,14 +4,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.borrow.system.appusermanagement.application.port.out.LoadUser;
+import com.borrow.system.appusermanagement.application.port.out.LoadUserCase;
 import com.borrow.system.modulecore.user.domain.User;
 
 @Repository
-public class UserPersistenceAdapter implements LoadUser {
+public class UserPersistenceAdapterCase implements LoadUserCase {
     private final UserRepository userRepository;
 
-    public UserPersistenceAdapter(UserRepository userRepository) {
+    public UserPersistenceAdapterCase(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
