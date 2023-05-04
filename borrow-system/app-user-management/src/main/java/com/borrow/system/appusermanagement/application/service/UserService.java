@@ -6,15 +6,15 @@ import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
-import com.borrow.system.appusermanagement.persistence.UserPersistenceAdapter;
+import com.borrow.system.appusermanagement.persistence.UserPersistenceAdapterCase;
 import com.borrow.system.appusermanagement.application.port.in.CreateUseCase;
 import com.borrow.system.modulecore.user.domain.User;
 
 @Service
 public class UserService implements CreateUseCase {
-    private final UserPersistenceAdapter userPersistenceAdapter;
+    private final UserPersistenceAdapterCase userPersistenceAdapter;
 
-    public UserService(UserPersistenceAdapter userPersistenceAdapter) {
+    public UserService(UserPersistenceAdapterCase userPersistenceAdapter) {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
