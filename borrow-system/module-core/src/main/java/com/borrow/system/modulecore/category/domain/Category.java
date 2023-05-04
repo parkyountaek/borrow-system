@@ -19,13 +19,18 @@ public class Category extends CreateBaseEntity {
     public Category() {
     }
 
-    public Category(String name, int borrowDay, boolean isQr) {
+    public Category(Long id, String name, int borrowDay, boolean isQr) {
+        this.id = id;
         this.name = name;
         this.borrowDay = borrowDay;
         this.isQr = isQr;
     }
 
-    public static Category create(String name, int borrowDay, boolean isQr) {
-        return new Category(name, borrowDay, isQr);
+    public static Category create(Long id, String name, int borrowDay, boolean isQr) {
+        return new Category(id, name, borrowDay, isQr);
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }
