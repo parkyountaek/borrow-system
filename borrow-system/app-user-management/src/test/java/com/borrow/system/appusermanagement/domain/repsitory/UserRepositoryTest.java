@@ -23,7 +23,7 @@ class UserRepositoryTest {
     @DisplayName("회원을 저장한다.")
     void saveUserTest() {
         // given
-        User user = new User("email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
+        User user = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
 
         // when
         User saveUser = this.userRepository.save(user);
@@ -36,7 +36,7 @@ class UserRepositoryTest {
     @DisplayName("회원을 아이디로 조회한다.")
     void findByIdTest() {
         // given
-        User user = new User("email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
+        User user = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
         User saveUser = this.userRepository.save(user);
 
         // when
