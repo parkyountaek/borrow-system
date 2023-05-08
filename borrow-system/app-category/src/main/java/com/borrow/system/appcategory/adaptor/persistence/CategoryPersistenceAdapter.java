@@ -1,13 +1,12 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
 import com.borrow.system.modulecore.category.domain.Category;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class CategoryPersistenceAdapter {
     private final CategoryRepository categoryRepository;
 
@@ -20,7 +19,7 @@ public class CategoryPersistenceAdapter {
     }
 
     public List<Category> findAllByUserId(Long userId) {
-        return this.categoryRepository.findAllByUserId(userId, Sort.by("CREATED_AT").ascending());
+        return this.categoryRepository.findAllByUserId(userId);
     }
 
     public Optional<Category> findByIdAndUserId(Long id, Long userId) {
