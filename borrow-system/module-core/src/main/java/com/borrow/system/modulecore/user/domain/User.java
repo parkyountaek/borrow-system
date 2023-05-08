@@ -24,13 +24,18 @@ public class User extends UpdateBaseEntity {
     @Column(name = "ROLE", nullable = false)
     private Role role;
 
-    public User(String email, String name, String password, String organization, String phoneNumber, Role role) {
+    public User() {}
+
+    public User(Long id, String email, String name, String password, String organization, String phoneNumber, Role role) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.organization = organization;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.initCreateBaseEntity();
+        this.initUpdateBaseEntity();
     }
 
     public Long getId() {
