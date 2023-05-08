@@ -18,4 +18,8 @@ public class CreateBaseEntity {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void initCreateBaseEntity() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

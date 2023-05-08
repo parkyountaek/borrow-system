@@ -8,10 +8,10 @@ import com.borrow.system.appusermanagement.application.port.out.LoadUserCase;
 import com.borrow.system.modulecore.user.domain.User;
 
 @Repository
-public class UserPersistenceAdapterCase implements LoadUserCase {
+public class UserPersistenceAdapter implements LoadUserCase {
     private final UserRepository userRepository;
 
-    public UserPersistenceAdapterCase(UserRepository userRepository) {
+    public UserPersistenceAdapter(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
