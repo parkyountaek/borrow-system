@@ -24,7 +24,7 @@ public class User extends UpdateBaseEntity {
     @Column(name = "ROLE", nullable = false)
     private Role role;
 
-    public User(String email, String name, String password, String organization, String phoneNumber, Role role) {
+    private User(String email, String name, String password, String organization, String phoneNumber, Role role) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -33,7 +33,23 @@ public class User extends UpdateBaseEntity {
         this.role = role;
     }
 
+    public static User user(String email, String name, String password, String organization, String phoneNumber) {
+        return new User(email, name, password, organization, phoneNumber, Role.USER);
+    }
+
+    public static User admin(String email, String name, String password, String organization, String phoneNumber) {
+        return new User(email, name, password, organization, phoneNumber, Role.ADMIN);
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

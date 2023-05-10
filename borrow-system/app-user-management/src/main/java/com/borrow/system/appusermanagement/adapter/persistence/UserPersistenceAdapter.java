@@ -1,4 +1,4 @@
-package com.borrow.system.appusermanagement.persistence;
+package com.borrow.system.appusermanagement.adapter.persistence;
 
 import java.util.Optional;
 
@@ -23,5 +23,9 @@ public class UserPersistenceAdapterCase implements LoadUserCase {
 
     public Optional<User> findByEmail(String email) {
         return this.userRepository.findByEmail(email);
+    }
+
+    public User createUser(User user) {
+        return this.userRepository.save(user);
     }
 }
