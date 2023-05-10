@@ -1,10 +1,8 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.appusermanagement.persistence.UserRepository;
+import com.borrow.system.appusermanagement.adapter.persistence.UserRepository;
 import com.borrow.system.modulecore.category.domain.Category;
-import com.borrow.system.modulecore.user.domain.Role;
 import com.borrow.system.modulecore.user.domain.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -27,10 +25,10 @@ class CategoryRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-        User willSaveUser = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.USER);
-        this.user = this.userRepository.save(willSaveUser);
+        User willSaveUser = User.user("email", "name", "password", "organization", "phoneNumber");
+        this.user = userRepository.save(willSaveUser);
         Category category = Category.create(null, "name", 10, true, this.user);
-        this.categoryRepository.save(category);
+        categoryRepository.save(category);
     }
 
     @Test
@@ -51,7 +49,7 @@ class CategoryRepositoryTest {
     void findAllByUserIdTest() {
         // given
         Long userId = this.user.getId();
-
+        System.out.println(userId);
         // when
         List<Category> categories = this.categoryRepository.findAllByUserId(userId);
 
