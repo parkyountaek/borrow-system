@@ -1,2 +1,7 @@
-package com.borrow.system.appusermanagement.application.port.in;public interface AdminCreateUseCase {
+package com.borrow.system.appusermanagement.application.port.in;
+
+import com.borrow.system.modulecore.user.domain.User;
+
+public interface AdminCreateUseCase {
+    User createAdmin(User user);
 }
