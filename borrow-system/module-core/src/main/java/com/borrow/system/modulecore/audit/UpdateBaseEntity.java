@@ -18,4 +18,8 @@ public class UpdateBaseEntity extends CreateBaseEntity{
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public void initUpdateBaseEntity() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

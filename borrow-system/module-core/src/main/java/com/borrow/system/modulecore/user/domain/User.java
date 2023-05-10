@@ -31,6 +31,8 @@ public class User extends UpdateBaseEntity {
         this.organization = organization;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.initCreateBaseEntity();
+        this.initUpdateBaseEntity();
     }
 
     public static User user(String email, String name, String password, String organization, String phoneNumber) {
