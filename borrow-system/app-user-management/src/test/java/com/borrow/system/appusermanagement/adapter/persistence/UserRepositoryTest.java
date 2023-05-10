@@ -1,6 +1,5 @@
-package com.borrow.system.appusermanagement.domain.repsitory;
+package com.borrow.system.appusermanagement.adapter.persistence;
 
-import com.borrow.system.appusermanagement.persistence.UserRepository;
 import com.borrow.system.modulecore.user.domain.Role;
 import com.borrow.system.modulecore.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
@@ -20,23 +19,38 @@ class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    @DisplayName("회원을 저장한다.")
+    @DisplayName("일반 회원을 저장한다.")
     void saveUserTest() {
         // given
-        User user = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
+        User user = User.user("email", "name", "password", "organization", "phoneNumber");
 
         // when
         User saveUser = this.userRepository.save(user);
 
         // then
         assertThat(saveUser).isEqualTo(user);
+        assertThat(saveUser.getRole()).isEqualTo(Role.USER);
+    }
+
+    @Test
+    @DisplayName("관리자 회원을 저장한다.")
+    void saveAdminTest() {
+        // given
+        User user = User.admin("email", "name", "password", "organization", "phoneNumber");
+
+        // when
+        User saveUser = this.userRepository.save(user);
+
+        // then
+        assertThat(saveUser).isEqualTo(user);
+        assertThat(saveUser.getRole()).isEqualTo(Role.ADMIN);
     }
 
     @Test
     @DisplayName("회원을 아이디로 조회한다.")
     void findByIdTest() {
         // given
-        User user = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.ADMIN);
+        User user = User.user("email", "name", "password", "organization", "phoneNumber");
         User saveUser = this.userRepository.save(user);
 
         // when

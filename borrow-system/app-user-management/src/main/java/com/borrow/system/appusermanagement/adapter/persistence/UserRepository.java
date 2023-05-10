@@ -1,4 +1,4 @@
-package com.borrow.system.appusermanagement.persistence;
+package com.borrow.system.appusermanagement.adapter.persistence;
 
 import com.borrow.system.modulecore.user.domain.User;
 

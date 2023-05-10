@@ -2,38 +2,40 @@ package com.borrow.system.appusermanagement.application.service;
 
 import java.util.Optional;
 
+import com.borrow.system.appusermanagement.application.port.in.AdminCreateUseCase;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
-import com.borrow.system.appusermanagement.persistence.UserPersistenceAdapterCase;
-import com.borrow.system.appusermanagement.application.port.in.CreateUseCase;
+import com.borrow.system.appusermanagement.adapter.persistence.UserPersistenceAdapter;
+import com.borrow.system.appusermanagement.application.port.in.UserCreateUseCase;
 import com.borrow.system.modulecore.user.domain.User;
 
 @Service
-public class UserService implements CreateUseCase {
-    private final UserPersistenceAdapterCase userPersistenceAdapter;
+public class UserService implements UserCreateUseCase, AdminCreateUseCase {
+    private final UserPersistenceAdapter userPersistenceAdapter;
 
-    public UserService(UserPersistenceAdapterCase userPersistenceAdapter) {
+    public UserService(UserPersistenceAdapter userPersistenceAdapter) {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
-    @Override
-    public User createUser() {
-        // TODO Auto-generated method stub
-
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
-    }
-
     public User findVerifiedUser(String email) {
-        Optional<User> optionalUser = this.userPersistenceAdapter.findByEmail(email);
-        return optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return this.userPersistenceAdapter.getUserByEmail(email);
     }
 
     public void existUser(String email) {
-        Optional<User> optionalUser = this.userPersistenceAdapter.findByEmail(email);
-        if(optionalUser.isEmpty())
-            throw new BusinessLogicException(ExceptionCode.USER_ALREADY_EXIST);
+        this.userPersistenceAdapter.getUserByEmail(email);
     }
-    
+
+    @Override
+    public User createAdmin(User user) {
+        existUser(user.getEmail());
+        return this.userPersistenceAdapter.createUser(user);
+    }
+
+    @Override
+    public User createUser(User user) {
+        existUser(user.getEmail());
+        return this.userPersistenceAdapter.createUser(user);
+    }
 }
