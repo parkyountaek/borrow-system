@@ -103,21 +103,56 @@ class UserPersistenceAdapterTest {
         }
     }
 
-    @Nested
+    @Test
     @DisplayName("회원을 등록한다.")
-    class CreateUserTest {
+    void saveUserTest() {
+        // given
+        given(userRepository.save(user))
+                .willReturn(user);
+
+        // when
+        User createUser = userPersistenceAdapter.saveUser(user);
+
+        // then
+        assertThat(createUser).isEqualTo(user);
+    }
+
+    @Nested
+    @DisplayName("회원이 존재하는지 확인한다.")
+    class ExistsUserTest {
         @Test
-        @DisplayName("성공 테스트")
-        void successTest() {
+        @DisplayName("회원이 존재한다.")
+        void alreadyExist() {
             // given
-            given(userRepository.save(user))
-                    .willReturn(user);
+            String email = "email";
+            given(userRepository.findByEmail(email))
+                    .willReturn(Optional.of(user));
+
+            // when & then
+            assertThatThrownBy(() -> userPersistenceAdapter.existUserByEmail(email))
+                    .isInstanceOf(BusinessLogicException.class)
+                    .hasMessage(ExceptionCode.USER_ALREADY_EXIST.getMessage());
+
+            then(userRepository)
+                    .should()
+                    .findByEmail(email);
+        }
+
+        @Test
+        @DisplayName("회원이 존재하지 않는다.")
+        void notExist() {
+            // given
+            String email = "email";
+            given(userRepository.findByEmail(email))
+                    .willReturn(Optional.empty());
 
             // when
-            User createUser = userPersistenceAdapter.createUser(user);
+            userPersistenceAdapter.existUserByEmail(email);
 
-            // then
-            assertThat(createUser).isEqualTo(user);
+            then(userRepository)
+                    .should()
+                    .findByEmail(email);
         }
+
     }
 }
