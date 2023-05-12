@@ -54,4 +54,20 @@ public class User extends UpdateBaseEntity {
     public Role getRole() {
         return role;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }
