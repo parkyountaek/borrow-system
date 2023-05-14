@@ -1,22 +1,20 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.appusermanagement.persistence.UserRepository;
+import com.borrow.system.appusermanagement.adapter.persistence.UserRepository;
 import com.borrow.system.modulecore.category.domain.Category;
-import com.borrow.system.modulecore.user.domain.Role;
 import com.borrow.system.modulecore.user.domain.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataJpaTest
 @ActiveProfiles("test")
 class CategoryRepositoryTest {
     @Autowired
@@ -27,7 +25,7 @@ class CategoryRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-        User willSaveUser = new User(null, "email", "name", "password", "organization", "phoneNumber", Role.USER);
+        User willSaveUser = User.user("email", "name", "password", "organization", "phoneNumber");
         this.user = this.userRepository.save(willSaveUser);
         Category category = Category.create(null, "name", 10, true, this.user);
         this.categoryRepository.save(category);
