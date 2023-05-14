@@ -3,6 +3,8 @@ package com.borrow.system.modulecore.user.domain;
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "BR_USER")
 public class User extends UpdateBaseEntity {
@@ -43,6 +45,13 @@ public class User extends UpdateBaseEntity {
         return new User(email, name, password, organization, phoneNumber, Role.ADMIN);
     }
 
+    public void updateProperty(User user) {
+        this.name = Objects.isNull(user.getEmail()) ? this.name : user.getName();
+        this.password = Objects.isNull(user.getPassword()) ? this.organization : user.getPassword();
+        this.organization = Objects.isNull(user.getOrganization()) ? this.organization : user.getOrganization();
+        this.phoneNumber = Objects.isNull(user.getPhoneNumber()) ? this.phoneNumber : user.getPhoneNumber();
+    }
+
     public Long getId() {
         return id;
     }
@@ -53,5 +62,21 @@ public class User extends UpdateBaseEntity {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

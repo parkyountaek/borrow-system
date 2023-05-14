@@ -57,7 +57,8 @@ class UserRepositoryTest {
         Optional<User> findUser = this.userRepository.findById(saveUser.getId());
 
         // then
-        assertThat(findUser.isPresent()).isEqualTo(true);
-        assertThat(findUser.get()).isEqualTo(saveUser);
+        assertThat(findUser).isPresent()
+                .get()
+                .isEqualTo(saveUser);
     }
 }
