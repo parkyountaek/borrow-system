@@ -2,7 +2,6 @@ package com.borrow.system.appusermanagement.application.service;
 
 import com.borrow.system.appusermanagement.application.port.in.UserUpdateUseCase;
 import com.borrow.system.appusermanagement.application.port.out.UserGetUseCase;
-import com.borrow.system.appusermanagement.util.CustomBeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.borrow.system.appusermanagement.adapter.persistence.UserPersistenceAdapter;

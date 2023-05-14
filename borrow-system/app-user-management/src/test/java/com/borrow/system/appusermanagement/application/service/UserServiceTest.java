@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -48,8 +49,8 @@ class UserServiceTest {
         // given
         String email = "email";
         User user = User.user(email, "name", "password", "organization", "phoneNumber");
-        given(userPersistenceAdapter.getUserByEmail(email))
-                .willReturn(user);
+        doNothing().when(userPersistenceAdapter)
+                .existUserByEmail(email);
 
         // when
         userService.existUser(email);
@@ -57,7 +58,7 @@ class UserServiceTest {
         // then
         then(userPersistenceAdapter)
                 .should()
-                .getUserByEmail(email);
+                .existUserByEmail(email);
     }
 
     @Test
