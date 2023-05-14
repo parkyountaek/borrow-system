@@ -3,4 +3,5 @@ include 'module-core'
 include 'app-user-management'
 include 'module-common'
 include 'app-category'
+include 'app-organization'
 
