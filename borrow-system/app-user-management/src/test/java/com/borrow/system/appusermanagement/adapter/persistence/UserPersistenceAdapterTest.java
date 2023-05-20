@@ -28,7 +28,7 @@ class UserPersistenceAdapterTest {
     @BeforeEach
     void beforeEach() {
         this.userPersistenceAdapter = new UserPersistenceAdapter(userRepository);
-        this.user = User.user("email", "name", "password", "organinzation", "phoneNumber");
+        this.user = User.user("email", "name", "password", null, "phoneNumber");
     }
     @Nested
     @DisplayName("회원 아이디로 회원을 조회한다.")

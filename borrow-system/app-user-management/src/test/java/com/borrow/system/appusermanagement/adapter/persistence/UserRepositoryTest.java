@@ -23,7 +23,7 @@ class UserRepositoryTest {
     @DisplayName("일반 회원을 저장한다.")
     void saveUserTest() {
         // given
-        Organization organization = new Organization("name", "address", "detailAddress", "reprentativeNumber", "faxNumber");
+        Organization organization = Organization.of("name", "address", "detailAddress", "reprentativeNumber", "faxNumber");
         User user = User.user("email", "name", "password", organization, "phoneNumber");
 
         // when
@@ -52,7 +52,7 @@ class UserRepositoryTest {
     @DisplayName("회원을 아이디로 조회한다.")
     void findByIdTest() {
         // given
-        Organization organization = new Organization("name", "address", "detailAddress", "reprentativeNumber", "faxNumber");
+        Organization organization = Organization.of("name", "address", "detailAddress", "reprentativeNumber", "faxNumber");
         User user = User.user("email", "name", "password", organization, "phoneNumber");
         User saveUser = this.userRepository.save(user);
 
