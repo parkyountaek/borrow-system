@@ -3,11 +3,15 @@ package com.borrow.system.modulecore.user.domain;
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
 import com.borrow.system.modulecore.organization.domain.Organization;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Entity
+@Getter
 @Table(name = "BR_USER")
+@AllArgsConstructor
 public class User extends UpdateBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,33 +57,5 @@ public class User extends UpdateBaseEntity {
         this.password = Objects.isNull(user.getPassword()) ? this.password : user.getPassword();
         this.organization = Objects.isNull(user.getOrganization()) ? this.organization : user.getOrganization();
         this.phoneNumber = Objects.isNull(user.getPhoneNumber()) ? this.phoneNumber : user.getPhoneNumber();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 }

@@ -4,10 +4,14 @@ import com.borrow.system.modulecore.audit.UpdateBaseEntity;
 import com.borrow.system.modulecore.item.domain.Item;
 import com.borrow.system.modulecore.user.domain.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@AllArgsConstructor
 @Table(name = "B_BORROW")
 public class Borrow extends UpdateBaseEntity {
     @Id

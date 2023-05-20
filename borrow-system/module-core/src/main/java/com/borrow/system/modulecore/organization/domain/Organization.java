@@ -1,8 +1,14 @@
 package com.borrow.system.modulecore.organization.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Objects;
 
 @Entity
+@Getter
+@AllArgsConstructor
 @Table(name = "BR_ORGANIZATION")
 public class Organization {
     @Id
@@ -19,38 +25,14 @@ public class Organization {
     @Column(name = "FAX_NUMBER")
     private String faxNumber;
 
-    public Organization() {
+    public static Organization of(String name, String address, String detailAddress, String representativeNumber, String faxNumber) {
+        return new Organization(null, name, address, detailAddress, representativeNumber, faxNumber);
     }
 
-    public Organization(String name, String address, String detailAddress, String representativeNumber, String faxNumber) {
-        this.name = name;
-        this.address = address;
-        this.detailAddress = detailAddress;
-        this.representativeNumber = representativeNumber;
-        this.faxNumber = faxNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getDetailAddress() {
-        return detailAddress;
-    }
-
-    public String getRepresentativeNumber() {
-        return representativeNumber;
-    }
-
-    public String getFaxNumber() {
-        return faxNumber;
+    public void updateProperty(Organization organization) {
+        this.address = Objects.isNull(organization.getAddress()) ? this.address : organization.getAddress();
+        this.detailAddress = Objects.isNull(organization.getDetailAddress()) ? this.detailAddress : organization.getDetailAddress();
+        this.representativeNumber = Objects.isNull(organization.getRepresentativeNumber()) ? this.representativeNumber : organization.getRepresentativeNumber();
+        this.faxNumber = Objects.isNull(organization.getFaxNumber()) ? this.faxNumber : organization.getFaxNumber();
     }
 }
