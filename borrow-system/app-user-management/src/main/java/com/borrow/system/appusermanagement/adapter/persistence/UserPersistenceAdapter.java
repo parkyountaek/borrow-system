@@ -4,18 +4,16 @@ import java.util.Optional;
 
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import com.borrow.system.appusermanagement.adapter.out.LoadUserCase;
 import com.borrow.system.modulecore.user.domain.User;
 
 @Repository
+@RequiredArgsConstructor
 public class UserPersistenceAdapter implements LoadUserCase {
     private final UserRepository userRepository;
-
-    public UserPersistenceAdapter(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public User getUserById(Long id) {

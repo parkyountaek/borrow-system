@@ -26,29 +26,11 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("이메일로 회원을 조회한다.")
-    void findVerifiedUserTest() {
-        // given
-        String email = "email";
-        User user = User.user(email, "name", "password", "organization", "phoneNumber");
-        given(userPersistenceAdapter.getUserByEmail(email))
-                .willReturn(user);
-
-        // when
-        userService.findVerifiedUser(email);
-
-        // then
-        then(userPersistenceAdapter)
-                .should()
-                .getUserByEmail(email);
-    }
-
-    @Test
     @DisplayName("email 로 회원이 있는지 확인한다.")
     void existUserTest() {
         // given
         String email = "email";
-        User user = User.user(email, "name", "password", "organization", "phoneNumber");
+        User.user(email, "name", "password", null, "phoneNumber");
         doNothing().when(userPersistenceAdapter)
                 .existUserByEmail(email);
 
@@ -65,7 +47,7 @@ class UserServiceTest {
     @DisplayName("회원을 등록한다.")
     void createUserTest() {
         // given
-        User user = User.user("email", "name", "password", "organization", "phoneNumber");
+        User user = User.user("email", "name", "password", null, "phoneNumber");
         given(userPersistenceAdapter.saveUser(user))
                 .willReturn(user);
         // when
@@ -83,8 +65,8 @@ class UserServiceTest {
     @DisplayName("회원 정보를 업데이트 한다.")
     void updateUserTest() {
         // given
-        User user = User.user("email", "name", "password", "organization", "phoneNumber");
-        User updateUser = User.user("email", "changeName", null, "changeOrganization", "changePhoneNumber");
+        User user = User.user("email", "name", "password", null, "phoneNumber");
+        User updateUser = User.user("email", "changeName", null, null, "changePhoneNumber");
         given(userPersistenceAdapter.getUserByEmail(user.getEmail()))
                 .willReturn(user);
         user.updateProperty(updateUser);
@@ -108,7 +90,7 @@ class UserServiceTest {
     void getUserByEmailTest() {
         // given
         String email = "email";
-        User user = User.user("email", "name", "password", "organization", "phoneNumber");
+        User user = User.user("email", "name", "password", null, "phoneNumber");
         given(userPersistenceAdapter.getUserByEmail(email))
                 .willReturn(user);
 
@@ -128,7 +110,7 @@ class UserServiceTest {
     void getUserByIdTest() {
         // given
         Long id = 1L;
-        User user = User.user("email", "name", "password", "organization", "phoneNumber");
+        User user = User.user("email", "name", "password", null, "phoneNumber");
         given(userPersistenceAdapter.getUserById(id))
                 .willReturn(user);
 

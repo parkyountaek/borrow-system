@@ -1,12 +1,17 @@
 package com.borrow.system.modulecore.user.domain;
 
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
+import com.borrow.system.modulecore.organization.domain.Organization;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Entity
+@Getter
 @Table(name = "BR_USER")
+@AllArgsConstructor
 public class User extends UpdateBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +23,17 @@ public class User extends UpdateBaseEntity {
     private String name;
     @Column(name = "PASSWORD", nullable = false)
     private String password;
-    @Column(name = "ORGANIZATION", nullable = false)
-    private String organization;
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE", nullable = false)
     private Role role;
 
-    private User(String email, String name, String password, String organization, String phoneNumber, Role role) {
+    @ManyToOne
+    @JoinColumn(name = "ORGANIZATION_ID")
+    private Organization organization;
+
+    private User(String email, String name, String password, Organization organization, String phoneNumber, Role role) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -37,46 +44,18 @@ public class User extends UpdateBaseEntity {
         this.initUpdateBaseEntity();
     }
 
-    public static User user(String email, String name, String password, String organization, String phoneNumber) {
+    public static User user(String email, String name, String password, Organization organization, String phoneNumber) {
         return new User(email, name, password, organization, phoneNumber, Role.USER);
     }
 
-    public static User admin(String email, String name, String password, String organization, String phoneNumber) {
-        return new User(email, name, password, organization, phoneNumber, Role.ADMIN);
+    public static User admin(String email, String name, String password, String phoneNumber) {
+        return new User(email, name, password, null, phoneNumber, Role.ADMIN);
     }
 
     public void updateProperty(User user) {
         this.name = Objects.isNull(user.getEmail()) ? this.name : user.getName();
-        this.password = Objects.isNull(user.getPassword()) ? this.organization : user.getPassword();
+        this.password = Objects.isNull(user.getPassword()) ? this.password : user.getPassword();
         this.organization = Objects.isNull(user.getOrganization()) ? this.organization : user.getOrganization();
         this.phoneNumber = Objects.isNull(user.getPhoneNumber()) ? this.phoneNumber : user.getPhoneNumber();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 }
