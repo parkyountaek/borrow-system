@@ -2,8 +2,12 @@ package com.borrow.system.modulecore.comment.domain;
 
 import com.borrow.system.modulecore.item.domain.Item;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Entity
+@Getter
+@AllArgsConstructor
 @Table(name = "B_COMMENT")
 public class Comment {
     @Id

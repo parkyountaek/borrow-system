@@ -3,9 +3,13 @@ package com.borrow.system.modulecore.item.domain;
 import com.borrow.system.modulecore.audit.UpdateBaseEntity;
 import com.borrow.system.modulecore.category.domain.Category;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(name = "B_ITEM")
+@AllArgsConstructor
 public class Item extends UpdateBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

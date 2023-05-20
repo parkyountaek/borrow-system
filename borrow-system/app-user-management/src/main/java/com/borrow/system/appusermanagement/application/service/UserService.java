@@ -1,39 +1,49 @@
 package com.borrow.system.appusermanagement.application.service;
 
-import java.util.Optional;
-
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
+import com.borrow.system.appusermanagement.application.port.in.UserUpdateUseCase;
+import com.borrow.system.appusermanagement.application.port.out.UserGetUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.borrow.system.appusermanagement.persistence.UserPersistenceAdapterCase;
-import com.borrow.system.appusermanagement.application.port.in.CreateUseCase;
+import com.borrow.system.appusermanagement.adapter.persistence.UserPersistenceAdapter;
+import com.borrow.system.appusermanagement.application.port.in.UserCreateUseCase;
 import com.borrow.system.modulecore.user.domain.User;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements CreateUseCase {
-    private final UserPersistenceAdapterCase userPersistenceAdapter;
+@Transactional
+@RequiredArgsConstructor
+public class UserService implements UserCreateUseCase, UserUpdateUseCase, UserGetUseCase {
+    private final UserPersistenceAdapter userPersistenceAdapter;
 
-    public UserService(UserPersistenceAdapterCase userPersistenceAdapter) {
-        this.userPersistenceAdapter = userPersistenceAdapter;
+    @Transactional(readOnly = true)
+    public void existUser(String email) {
+        this.userPersistenceAdapter.existUserByEmail(email);
     }
 
     @Override
-    public User createUser() {
-        // TODO Auto-generated method stub
-
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+    public User createUser(User user) {
+        existUser(user.getEmail());
+        return this.userPersistenceAdapter.saveUser(user);
     }
 
-    public User findVerifiedUser(String email) {
-        Optional<User> optionalUser = this.userPersistenceAdapter.findByEmail(email);
-        return optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    @Override
+    public User updateUser(User user) {
+        User findUser = this.getUserByEmail(user.getEmail());
+        findUser.updateProperty(user);
+
+        return this.userPersistenceAdapter.saveUser(findUser);
     }
 
-    public void existUser(String email) {
-        Optional<User> optionalUser = this.userPersistenceAdapter.findByEmail(email);
-        if(optionalUser.isEmpty())
-            throw new BusinessLogicException(ExceptionCode.USER_ALREADY_EXIST);
+    @Override
+    @Transactional(readOnly = true)
+    public User getUserByEmail(String email) {
+        return this.userPersistenceAdapter.getUserByEmail(email);
     }
-    
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getUserById(Long id) {
+        return this.userPersistenceAdapter.getUserById(id);
+    }
 }
