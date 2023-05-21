@@ -1,12 +1,12 @@
 package com.borrow.system.appcategory.application.service;
 
+import com.borrow.system.appcategory.adaptor.persistence.CategoryPersistenceAdapter;
 import com.borrow.system.appcategory.application.port.in.DeleteCategoryUseCase;
-import com.borrow.system.appcategory.application.port.out.StoreCategoryUseCase;
 import com.borrow.system.appcategory.application.port.in.UpdateCategoryUseCase;
 import com.borrow.system.appcategory.application.port.out.LoadCategoryCase;
-import com.borrow.system.appcategory.adaptor.persistence.CategoryPersistenceAdapter;
-import com.borrow.system.modulecommon.util.CustomBeanUtils;
+import com.borrow.system.appcategory.application.port.out.StoreCategoryUseCase;
 import com.borrow.system.modulecore.domain.category.Category;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +14,9 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CategoryService implements StoreCategoryUseCase, LoadCategoryCase, UpdateCategoryUseCase, DeleteCategoryUseCase {
     private final CategoryPersistenceAdapter categoryPersistenceAdapter;
-    private final CustomBeanUtils<Category> beanUtils;
-
-    public CategoryService(CategoryPersistenceAdapter categoryPersistenceAdapter, CustomBeanUtils<Category> beanUtils) {
-        this.categoryPersistenceAdapter = categoryPersistenceAdapter;
-        this.beanUtils = beanUtils;
-    }
 
     @Override
     public Category storeCategory(Category category) {
@@ -29,27 +24,25 @@ public class CategoryService implements StoreCategoryUseCase, LoadCategoryCase, 
     }
 
     @Override
-    public List<Category> getAllByUserId(Long userId) {
-        return null;
+    public List<Category> getAllByOrganizationId(Long organizationId) {
+        return this.categoryPersistenceAdapter.getAllByOrganizationId(organizationId);
     }
 
     @Override
-    public Category getByIdAndUserId(Long id, Long userId) {
-        return null;
-//        Optional<Category> optionalCategory = this.categoryPersistenceAdapter.findByIdAndUserId(id, userId);
-//        return optionalCategory.orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
+    public Category getByIdAndOrganizationId(Long id, Long organizationId) {
+        return this.categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId);
     }
 
     @Override
-    public Category updateCategory(Long userId, Category category) {
-        Category findCategory = this.getByIdAndUserId(category.getId(), userId);
-        Category updateCategory = this.beanUtils.copyNonNullProperties(category, findCategory);
-        return this.storeCategory(updateCategory);
+    public Category updateCategory(Category category, Long organizationId) {
+        Category findCategory = this.getByIdAndOrganizationId(category.getId(), organizationId);
+        findCategory.update(category);
+        return this.storeCategory(findCategory);
     }
 
     @Override
-    public void deleteCategory(Long id, Long userId) {
-        Category findCategory = this.getByIdAndUserId(id, userId);
+    public void deleteCategory(Long id, Long organizationId) {
+        Category findCategory = this.getByIdAndOrganizationId(id, organizationId);
         this.categoryPersistenceAdapter.deleteCategory(findCategory);
     }
 }
