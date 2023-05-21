@@ -1,8 +1,8 @@
 package com.borrow.system.appusermanagement.adapter.persistence;
 
-import com.borrow.system.modulecore.organization.domain.Organization;
-import com.borrow.system.modulecore.user.domain.Role;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.organization.Organization;
+import com.borrow.system.modulecore.domain.user.Role;
+import com.borrow.system.modulecore.domain.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
