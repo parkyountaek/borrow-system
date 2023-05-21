@@ -1,4 +1,4 @@
-package com.borrow.system.modulecore.organization.domain;
+package com.borrow.system.modulecore.domain.organization;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

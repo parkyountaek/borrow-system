@@ -1,4 +1,4 @@
-package com.borrow.system.modulecore.audit;
+package com.borrow.system.modulecore.domain.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -16,10 +16,6 @@ public class CreateBaseEntity {
     @CreatedDate
     @Column(name = "CREATE_DTM", updatable = false)
     private LocalDateTime createdAt;
-
-    public void initCreateBaseEntity() {
-        this.createdAt = LocalDateTime.now();
-    }
 
     public void initCreateBaseEntity() {
         this.createdAt = LocalDateTime.now();
