@@ -5,15 +5,12 @@ import com.borrow.system.appcategory.application.port.out.StoreCategoryUseCase;
 import com.borrow.system.appcategory.application.port.in.UpdateCategoryUseCase;
 import com.borrow.system.appcategory.application.port.out.LoadCategoryCase;
 import com.borrow.system.appcategory.adaptor.persistence.CategoryPersistenceAdapter;
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
 import com.borrow.system.modulecommon.util.CustomBeanUtils;
-import com.borrow.system.modulecore.category.domain.Category;
+import com.borrow.system.modulecore.domain.category.Category;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,18 +25,19 @@ public class CategoryService implements StoreCategoryUseCase, LoadCategoryCase, 
 
     @Override
     public Category storeCategory(Category category) {
-        return this.categoryPersistenceAdapter.createCategory(category);
+        return this.categoryPersistenceAdapter.saveCategory(category);
     }
 
     @Override
     public List<Category> getAllByUserId(Long userId) {
-        return this.categoryPersistenceAdapter.findAllByUserId(userId);
+        return null;
     }
 
     @Override
     public Category getByIdAndUserId(Long id, Long userId) {
-        Optional<Category> optionalCategory = this.categoryPersistenceAdapter.findByIdAndUserId(id, userId);
-        return optionalCategory.orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
+        return null;
+//        Optional<Category> optionalCategory = this.categoryPersistenceAdapter.findByIdAndUserId(id, userId);
+//        return optionalCategory.orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
     }
 
     @Override

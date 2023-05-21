@@ -1,6 +1,6 @@
 package com.borrow.system.apporganization.adapter.persistence;
 
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.modulecore.domain.organization.Organization;
 
 import java.util.List;
 

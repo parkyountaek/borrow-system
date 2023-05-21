@@ -1,32 +1,41 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.modulecore.category.domain.Category;
-import org.springframework.stereotype.Component;
+import com.borrow.system.appcategory.adaptor.in.DeleteUseCase;
+import com.borrow.system.appcategory.adaptor.in.SaveUseCase;
+import com.borrow.system.appcategory.adaptor.out.LoadUseCase;
+import com.borrow.system.modulecommon.exception.BusinessLogicException;
+import com.borrow.system.modulecommon.exception.ExceptionCode;
+import com.borrow.system.modulecore.domain.category.Category;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Component
-public class CategoryPersistenceAdapter {
+@Repository
+public class CategoryPersistenceAdapter implements SaveUseCase, LoadUseCase, DeleteUseCase {
     private final CategoryRepository categoryRepository;
 
     public CategoryPersistenceAdapter(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category createCategory(Category category) {
+    @Override
+    public Category saveCategory(Category category) {
         return this.categoryRepository.save(category);
     }
 
-    public List<Category> findAllByUserId(Long userId) {
-        return this.categoryRepository.findAllByUserId(userId);
-    }
-
-    public Optional<Category> findByIdAndUserId(Long id, Long userId) {
-        return this.categoryRepository.findByIdAndUserId(id, userId);
-    }
-
+    @Override
     public void deleteCategory(Category category) {
         this.categoryRepository.delete(category);
+    }
+
+    @Override
+    public List<Category> getAllByOrganizationId(Long organizationId) {
+        return categoryRepository.findAllByOrganizationId(organizationId);
+    }
+
+    @Override
+    public Category getByIdAndOrganizationId(Long id, Long organizationId) {
+        return categoryRepository.findByIdAndOrganizationId(id, organizationId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
     }
 }

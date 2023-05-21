@@ -8,18 +8,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaAuditing
 @EnableJpaRepositories(basePackages = {
-        "com.borrow.system.appusermanagement.*",
+        "com.borrow.system.apporganization.*",
         "com.borrow.system.appcategory.*"
 })
 @EntityScan(basePackages = {
-        "com.borrow.system.modulecore.user.*",
-        "com.borrow.system.modulecore.category.*"
+        "com.borrow.system.modulecore.domain.organization",
+        "com.borrow.system.modulecore.domain.category"
 })
 @SpringBootApplication(scanBasePackages = {
         "com.borrow.system.modulecore.*",
         "com.borrow.system.modulecommon.*",
         "com.borrow.system.appcategory.*",
-        "com.borrow.system.appusermanagement.*"
+        "com.borrow.system.apporganization.*"
 })
 public class AppCategoryApplication {
     public static void main(String[] args) {

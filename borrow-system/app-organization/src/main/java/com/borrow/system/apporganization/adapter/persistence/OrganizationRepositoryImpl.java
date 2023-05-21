@@ -1,13 +1,13 @@
 package com.borrow.system.apporganization.adapter.persistence;
 
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.modulecore.domain.organization.Organization;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.borrow.system.modulecore.organization.domain.QOrganization.*;
+import static com.borrow.system.modulecore.domain.organization.QOrganization.*;
 
 @Repository
 @RequiredArgsConstructor
