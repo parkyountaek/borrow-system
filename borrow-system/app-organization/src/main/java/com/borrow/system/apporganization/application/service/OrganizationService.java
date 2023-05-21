@@ -4,7 +4,7 @@ import com.borrow.system.apporganization.adapter.persistence.OrganizationPersist
 import com.borrow.system.apporganization.application.port.in.OrganizationCreateUseCase;
 import com.borrow.system.apporganization.application.port.in.OrganizationUpdateUseCase;
 import com.borrow.system.apporganization.application.port.out.OrganizationGetUseCase;
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.modulecore.domain.organization.Organization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

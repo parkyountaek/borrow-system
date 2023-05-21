@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import com.borrow.system.appusermanagement.adapter.out.LoadUserCase;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.user.User;
 
 @Repository
 @RequiredArgsConstructor

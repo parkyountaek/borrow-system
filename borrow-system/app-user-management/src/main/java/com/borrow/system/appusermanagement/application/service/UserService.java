@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.borrow.system.appusermanagement.adapter.persistence.UserPersistenceAdapter;
 import com.borrow.system.appusermanagement.application.port.in.UserCreateUseCase;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.user.User;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

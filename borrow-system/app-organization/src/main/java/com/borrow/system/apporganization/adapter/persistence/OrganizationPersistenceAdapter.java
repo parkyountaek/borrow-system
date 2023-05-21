@@ -3,7 +3,7 @@ package com.borrow.system.apporganization.adapter.persistence;
 import com.borrow.system.apporganization.adapter.out.LoadUseCase;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.modulecore.domain.organization.Organization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

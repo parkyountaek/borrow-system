@@ -1,6 +1,6 @@
 package com.borrow.system.appusermanagement.adapter.persistence;
 
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.user.User;
 
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
-package com.borrow.system.modulecore.category.domain;
+package com.borrow.system.modulecore.domain.category;
 
-import com.borrow.system.modulecore.audit.CreateBaseEntity;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.audit.CreateBaseEntity;
+import com.borrow.system.modulecore.domain.organization.Organization;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +21,10 @@ public class Category extends CreateBaseEntity {
     @Column(name = "IS_QR")
     private boolean isQr;
     @ManyToOne
-    @JoinColumn(name = "CREATED_BY")
-    private User user;
+    @JoinColumn(name = "ORGANIZATION_ID")
+    private Organization organization;
 
-    public static Category create(Long id, String name, int borrowDay, boolean isQr, User user) {
-        return new Category(id, name, borrowDay, isQr, user);
+    public static Category create(Long id, String name, int borrowDay, boolean isQr, Organization organization) {
+        return new Category(id, name, borrowDay, isQr, organization);
     }
 }

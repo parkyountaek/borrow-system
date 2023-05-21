@@ -1,7 +1,7 @@
 package com.borrow.system.appusermanagement.application.service;
 
 import com.borrow.system.appusermanagement.adapter.persistence.UserPersistenceAdapter;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

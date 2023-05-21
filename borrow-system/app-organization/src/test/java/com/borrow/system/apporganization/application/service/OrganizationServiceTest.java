@@ -3,7 +3,7 @@ package com.borrow.system.apporganization.application.service;
 import com.borrow.system.apporganization.adapter.persistence.OrganizationPersistenceAdapter;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.modulecore.domain.organization.Organization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

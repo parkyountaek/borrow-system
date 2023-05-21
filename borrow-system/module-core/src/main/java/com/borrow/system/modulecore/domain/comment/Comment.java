@@ -1,6 +1,6 @@
-package com.borrow.system.modulecore.comment.domain;
+package com.borrow.system.modulecore.domain.comment;
 
-import com.borrow.system.modulecore.item.domain.Item;
+import com.borrow.system.modulecore.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,12 +1,15 @@
 package com.borrow.system.apporganization.adapter.persistence;
 
-import com.borrow.system.modulecore.organization.domain.Organization;
+import com.borrow.system.apporganization.config.TestConfig;
+import com.borrow.system.modulecore.domain.organization.Organization;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -14,12 +17,14 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
 @DataJpaTest
+@ActiveProfiles("test")
+@Import(TestConfig.class)
 class OrganizationRepositoryTest {
     @Autowired
     OrganizationRepository organizationRepository;
     Organization savedOrganization;
+
     @BeforeEach
     void beforeEach() {
         Organization organization = Organization.of("oname", "oaddress", "odetailAddress", "orepresentativeNumber", "ofaxNumber");

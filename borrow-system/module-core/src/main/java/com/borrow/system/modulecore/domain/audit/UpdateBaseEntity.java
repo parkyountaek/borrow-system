@@ -1,4 +1,4 @@
-package com.borrow.system.modulecore.audit;
+package com.borrow.system.modulecore.domain.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

@@ -1,8 +1,8 @@
-package com.borrow.system.modulecore.borrow.domain;
+package com.borrow.system.modulecore.domain.borrow;
 
-import com.borrow.system.modulecore.audit.UpdateBaseEntity;
-import com.borrow.system.modulecore.item.domain.Item;
-import com.borrow.system.modulecore.user.domain.User;
+import com.borrow.system.modulecore.domain.audit.UpdateBaseEntity;
+import com.borrow.system.modulecore.domain.item.Item;
+import com.borrow.system.modulecore.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

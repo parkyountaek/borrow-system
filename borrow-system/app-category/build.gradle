@@ -3,7 +3,7 @@ jar { enabled = false }
 
 dependencies {
     runtimeOnly 'com.h2database:h2'
-    implementation project(':app-user-management')
+    implementation project(':app-organization')
     implementation project(':module-core')
     implementation project(':module-common')
 }

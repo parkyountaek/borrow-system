@@ -1,12 +1,12 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.modulecore.category.domain.Category;
+import com.borrow.system.modulecore.domain.category.Category;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepositoryCustom {
-    List<Category> findAllByUserId(Long userId);
+    List<Category> findAllByOrganizationId(Long organizationId);
 
-    Optional<Category> findByIdAndUserId(Long id, Long userId);
+    Optional<Category> findByIdAndOrganizationId(Long id, Long organizationId);
 }
