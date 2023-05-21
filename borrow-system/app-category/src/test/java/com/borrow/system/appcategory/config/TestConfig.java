@@ -1,4 +1,4 @@
-package com.borrow.system.apporganization.config;
+package com.borrow.system.appcategory.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
