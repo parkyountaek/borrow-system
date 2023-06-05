@@ -4,7 +4,7 @@ import com.borrow.system.modulecore.domain.organization.Organization;
 
 import java.util.List;
 
-public interface OrganizationGetUseCase {
+public interface OrganizationLoadUseCase {
     List<Organization> getOrganizationByName(String name);
 
     Organization getOrganizationById(Long id);
