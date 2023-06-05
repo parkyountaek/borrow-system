@@ -1,2 +1,7 @@
-package com.borrow.system.appitem.application.port.in;public interface ItemEnrollUseCase {
+package com.borrow.system.appitem.application.port.in;
+
+import com.borrow.system.modulecore.domain.item.Item;
+
+public interface ItemEnrollUseCase {
+    Item enrollItem(Item item);
 }
