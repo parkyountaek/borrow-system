@@ -1,22 +1,19 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.appcategory.adaptor.in.DeleteUseCase;
-import com.borrow.system.appcategory.adaptor.in.SaveUseCase;
-import com.borrow.system.appcategory.adaptor.out.LoadUseCase;
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
+import com.borrow.system.appcategory.application.port.in.DeletePort;
+import com.borrow.system.appcategory.application.port.in.SavePort;
+import com.borrow.system.appcategory.application.port.out.LoadPort;
 import com.borrow.system.modulecore.domain.category.Category;
-import org.springframework.stereotype.Repository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class CategoryPersistenceAdapter implements SaveUseCase, LoadUseCase, DeleteUseCase {
+@Component
+@RequiredArgsConstructor
+public class CategoryPersistenceAdapter implements SavePort, LoadPort, DeletePort {
     private final CategoryRepository categoryRepository;
-
-    public CategoryPersistenceAdapter(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category saveCategory(Category category) {
@@ -34,8 +31,7 @@ public class CategoryPersistenceAdapter implements SaveUseCase, LoadUseCase, Del
     }
 
     @Override
-    public Category getByIdAndOrganizationId(Long id, Long organizationId) {
-        return categoryRepository.findByIdAndOrganizationId(id, organizationId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
+    public Optional<Category> findByIdAndOrganizationId(Long id, Long organizationId) {
+        return categoryRepository.findByIdAndOrganizationId(id, organizationId);
     }
 }
