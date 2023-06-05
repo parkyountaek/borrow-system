@@ -1,4 +1,4 @@
-package com.borrow.system.apporganization.config;
+package com.borrow.system.appitem.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
 public class TestConfig {
-
     @PersistenceContext
     private EntityManager entityManager;
 
