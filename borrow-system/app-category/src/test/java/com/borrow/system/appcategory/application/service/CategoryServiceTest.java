@@ -1,8 +1,9 @@
 package com.borrow.system.appcategory.application.service;
 
-import com.borrow.system.appcategory.adaptor.persistence.CategoryPersistenceAdapter;
+import com.borrow.system.appcategory.application.port.in.DeletePort;
+import com.borrow.system.appcategory.application.port.in.SavePort;
+import com.borrow.system.appcategory.application.port.out.LoadPort;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
 import com.borrow.system.modulecore.domain.category.Category;
 import com.borrow.system.modulecore.domain.organization.Organization;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,24 +16,28 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
     CategoryService categoryService;
     @Mock
-    CategoryPersistenceAdapter categoryPersistenceAdapter;
+    LoadPort loadPort;
+    @Mock
+    DeletePort deletePort;
+    @Mock
+    SavePort savePort;
 
     @BeforeEach
     void beforeEach() {
-        categoryService = new CategoryService(categoryPersistenceAdapter);
+        categoryService = new CategoryService(loadPort, deletePort, savePort);
     }
 
     @Test
@@ -41,14 +46,14 @@ class CategoryServiceTest {
         // given
         Organization organization = new Organization(1L, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
         Category category = Category.create(1L, "name", 2, true, organization);
-        given(categoryPersistenceAdapter.saveCategory(category))
+        given(savePort.saveCategory(category))
                 .willReturn(category);
 
         // when
         Category savedCategory = categoryService.storeCategory(category);
 
         // then
-        then(categoryPersistenceAdapter)
+        then(savePort)
                 .should()
                 .saveCategory(category);
         assertThat(savedCategory).isEqualTo(category);
@@ -61,14 +66,14 @@ class CategoryServiceTest {
         Long organizationId = 1L;
         Organization organization = new Organization(organizationId, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
         List<Category> categories = List.of(Category.create(1L, "name", 2, true, organization));
-        given(categoryPersistenceAdapter.getAllByOrganizationId(organizationId))
+        given(loadPort.getAllByOrganizationId(organizationId))
                 .willReturn(categories);
 
         // when
         List<Category> findCategories = categoryService.getAllByOrganizationId(organizationId);
 
         // then
-        then(categoryPersistenceAdapter)
+        then(loadPort)
                 .should()
                 .getAllByOrganizationId(organizationId);
         assertThat(findCategories).isEqualTo(categories);
@@ -84,16 +89,16 @@ class CategoryServiceTest {
             Long id = 1L, organizationId = 1L;
             Organization organization = new Organization(organizationId, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
             Category category = Category.create(id, "name", 2, true, organization);
-            given(categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId))
-                    .willReturn(category);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.of(category));
 
             // when
             Category findCategory = categoryService.getByIdAndOrganizationId(id, organizationId);
 
             // then
-            then(categoryPersistenceAdapter)
+            then(loadPort)
                     .should()
-                    .getByIdAndOrganizationId(id, organizationId);
+                    .findByIdAndOrganizationId(id, organizationId);
             assertThat(findCategory).isEqualTo(category);
         }
 
@@ -102,9 +107,8 @@ class CategoryServiceTest {
         void failTest() {
             // given
             Long id = 1L, organizationId = 1L;
-            doThrow(new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND))
-                    .when(categoryPersistenceAdapter)
-                    .getByIdAndOrganizationId(id, organizationId);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.empty());
 
             // when & then
             assertThatThrownBy(() -> categoryService.getByIdAndOrganizationId(id, organizationId))
@@ -124,20 +128,20 @@ class CategoryServiceTest {
             Organization organization = new Organization(organizationId, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
             Category category = Category.create(id, "name", 2, true, organization);
             Category updatingCategory = Category.create(id, "changeName", null, null, organization);
-            given(categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId))
-                    .willReturn(category);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.of(category));
             category.update(updatingCategory);
-            given(categoryPersistenceAdapter.saveCategory(category))
+            given(savePort.saveCategory(category))
                     .willReturn(category);
 
             // when
             Category updatedCategory = categoryService.updateCategory(updatingCategory, organizationId);
 
             // then
-            then(categoryPersistenceAdapter)
+            then(loadPort)
                     .should()
-                    .getByIdAndOrganizationId(id, organizationId);
-            then(categoryPersistenceAdapter)
+                    .findByIdAndOrganizationId(id, organizationId);
+            then(savePort)
                     .should()
                     .saveCategory(category);
             assertThat(updatedCategory).isEqualTo(category);
@@ -150,9 +154,8 @@ class CategoryServiceTest {
             Long id = 1L, organizationId = 1L;
             Organization organization = new Organization(organizationId, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
             Category updatingCategory = Category.create(id, "changeName", null, null, organization);
-            doThrow(new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND))
-                    .when(categoryPersistenceAdapter)
-                    .getByIdAndOrganizationId(id, organizationId);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.empty());
 
             // when & then
             assertThatThrownBy(() -> categoryService.updateCategory(updatingCategory, organizationId))
@@ -170,20 +173,20 @@ class CategoryServiceTest {
             Long id = 1L, organizationId = 1L;
             Organization organization = new Organization(organizationId, "name", "address", "detailAddress", "representativeNumber", "faxNumber");
             Category category = Category.create(id, "name", 2, true, organization);
-            given(categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId))
-                    .willReturn(category);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.of(category));
             doNothing()
-                    .when(categoryPersistenceAdapter)
+                    .when(deletePort)
                     .deleteCategory(category);
 
             // when
             categoryService.deleteCategory(id, organizationId);
 
             // then
-            then(categoryPersistenceAdapter)
+            then(loadPort)
                     .should()
-                    .getByIdAndOrganizationId(id, organizationId);
-            then(categoryPersistenceAdapter)
+                    .findByIdAndOrganizationId(id, organizationId);
+            then(deletePort)
                     .should()
                     .deleteCategory(category);
         }
@@ -193,9 +196,8 @@ class CategoryServiceTest {
         void failTest() {
             // given
             Long id = 1L, organizationId = 1L;
-            doThrow(new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND))
-                    .when(categoryPersistenceAdapter)
-                    .getByIdAndOrganizationId(id, organizationId);
+            given(loadPort.findByIdAndOrganizationId(id, organizationId))
+                    .willReturn(Optional.empty());
 
             // when & then
             assertThatThrownBy(() -> categoryService.deleteCategory(id, organizationId))

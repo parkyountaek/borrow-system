@@ -1,6 +1,5 @@
 package com.borrow.system.apporganization.adapter.persistence;
 
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecore.domain.organization.Organization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -60,13 +58,13 @@ class OrganizationPersistenceAdapterTest {
                     .willReturn(Optional.of(organization));
 
             // when
-            Organization findOrganization = organizationPersistenceAdapter.getById(id);
+            Optional<Organization> findOrganization = organizationPersistenceAdapter.findById(id);
 
             // then
             then(organizationRepository)
                     .should()
                     .findById(id);
-            assertThat(findOrganization).isEqualTo(organization);
+            assertThat(findOrganization).isPresent().get().isEqualTo(organization);
         }
 
         @Test
@@ -77,10 +75,11 @@ class OrganizationPersistenceAdapterTest {
             given(organizationRepository.findById(id))
                     .willReturn(Optional.empty());
 
-            // when & then
-            assertThatThrownBy(() -> organizationPersistenceAdapter.getById(id))
-                    .isInstanceOf(BusinessLogicException.class)
-                    .hasMessage("ORGANIZATION_NOT_FOUND");
+            // when
+            Optional<Organization> findOrganization = organizationPersistenceAdapter.findById(id);
+
+            // then
+            assertThat(findOrganization).isNotPresent();
         }
     }
 

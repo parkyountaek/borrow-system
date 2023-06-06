@@ -1,30 +1,31 @@
 package com.borrow.system.apporganization.adapter.persistence;
 
-import com.borrow.system.apporganization.adapter.out.LoadUseCase;
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
+import com.borrow.system.apporganization.application.port.in.SavePort;
+import com.borrow.system.apporganization.application.port.out.LoadPort;
 import com.borrow.system.modulecore.domain.organization.Organization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class OrganizationPersistenceAdapter implements LoadUseCase {
+public class OrganizationPersistenceAdapter implements LoadPort, SavePort {
     private final OrganizationRepository organizationRepository;
 
+    @Override
     public Organization saveOrganization(Organization organization) {
-        return this.organizationRepository.save(organization);
+        return organizationRepository.save(organization);
     }
 
-    public Organization getById(Long id) {
-        return this.organizationRepository.findById(id)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORGANIZATION_NOT_FOUND));
+    @Override
+    public Optional<Organization> findById(Long id) {
+        return organizationRepository.findById(id);
     }
 
     @Override
     public List<Organization> getAllByName(String name) {
-        return this.organizationRepository.findAllByName(name);
+        return organizationRepository.findAllByName(name);
     }
 }

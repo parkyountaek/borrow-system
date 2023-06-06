@@ -1,6 +1,5 @@
 package com.borrow.system.appcategory.adaptor.persistence;
 
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecore.domain.category.Category;
 import com.borrow.system.modulecore.domain.organization.Organization;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.doNothing;
@@ -88,27 +86,13 @@ class CategoryPersistenceAdapterTest {
                     .willReturn(Optional.of(category));
 
             // when
-            Category findCategory = categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId);
+            Optional<Category> findCategory = categoryPersistenceAdapter.findByIdAndOrganizationId(id, organizationId);
 
             // then
             then(categoryRepository)
                     .should()
                     .findByIdAndOrganizationId(id, organizationId);
-            assertThat(findCategory).isEqualTo(category);
-        }
-
-        @Test
-        @DisplayName("실패 테스트")
-        void failTest() {
-            // given
-            Long id = 1L, organizationId = 1L;
-            given(categoryRepository.findByIdAndOrganizationId(id, organizationId))
-                    .willReturn(Optional.empty());
-
-            // when & then
-            assertThatThrownBy(() -> categoryPersistenceAdapter.getByIdAndOrganizationId(id, organizationId))
-                    .isInstanceOf(BusinessLogicException.class)
-                    .hasMessage("CATEGORY_NOT_FOUND");
+            assertThat(findCategory).isPresent().get().isEqualTo(category);
         }
     }
 
