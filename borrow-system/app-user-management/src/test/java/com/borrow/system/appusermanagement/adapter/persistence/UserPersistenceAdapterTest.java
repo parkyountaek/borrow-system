@@ -1,7 +1,5 @@
 package com.borrow.system.appusermanagement.adapter.persistence;
 
-import com.borrow.system.modulecommon.exception.BusinessLogicException;
-import com.borrow.system.modulecommon.exception.ExceptionCode;
 import com.borrow.system.modulecore.domain.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -42,13 +40,13 @@ class UserPersistenceAdapterTest {
                     .willReturn(Optional.of(user));
 
             // when
-            User findUser = userPersistenceAdapter.getUserById(id);
+            Optional<User> findUser = userPersistenceAdapter.findById(id);
 
             // then
             then(userRepository)
                     .should()
                     .findById(id);
-            assertThat(findUser).isEqualTo(user);
+            assertThat(findUser).isPresent().get().isEqualTo(user);
         }
 
         @Test
@@ -59,11 +57,14 @@ class UserPersistenceAdapterTest {
             given(userRepository.findById(id))
                     .willReturn(Optional.empty());
 
-            // when & then
-            assertThatThrownBy(() -> userPersistenceAdapter.getUserById(id))
-                    .isInstanceOf(BusinessLogicException.class)
-                    .message().isEqualTo(ExceptionCode.USER_NOT_FOUND.getMessage());
+            // when
+            Optional<User> findUser = userPersistenceAdapter.findById(id);
 
+            // then
+            then(userRepository)
+                    .should()
+                    .findById(id);
+            assertThat(findUser).isNotPresent();
         }
     }
 
@@ -79,13 +80,13 @@ class UserPersistenceAdapterTest {
                     .willReturn(Optional.of(user));
 
             // when
-            User findUser = userPersistenceAdapter.getUserByEmail(email);
+            Optional<User> findUser = userPersistenceAdapter.findByEmail(email);
 
             // then
             then(userRepository)
                     .should()
                     .findByEmail(email);
-            assertThat(findUser).isEqualTo(user);
+            assertThat(findUser).isPresent().get().isEqualTo(user);
         }
 
         @Test
@@ -96,10 +97,14 @@ class UserPersistenceAdapterTest {
             given(userRepository.findByEmail(email))
                     .willReturn(Optional.empty());
 
-            // when & then
-            assertThatThrownBy(() -> userPersistenceAdapter.getUserByEmail(email))
-                    .isInstanceOf(BusinessLogicException.class)
-                    .message().isEqualTo(ExceptionCode.USER_NOT_FOUND.getMessage());
+            // when
+            Optional<User> findUser = userPersistenceAdapter.findByEmail(email);
+
+            // then
+            then(userRepository)
+                    .should()
+                    .findByEmail(email);
+            assertThat(findUser).isNotPresent();
         }
     }
 
@@ -115,44 +120,5 @@ class UserPersistenceAdapterTest {
 
         // then
         assertThat(createUser).isEqualTo(user);
-    }
-
-    @Nested
-    @DisplayName("회원이 존재하는지 확인한다.")
-    class ExistsUserTest {
-        @Test
-        @DisplayName("회원이 존재한다.")
-        void alreadyExist() {
-            // given
-            String email = "email";
-            given(userRepository.findByEmail(email))
-                    .willReturn(Optional.of(user));
-
-            // when & then
-            assertThatThrownBy(() -> userPersistenceAdapter.existUserByEmail(email))
-                    .isInstanceOf(BusinessLogicException.class)
-                    .hasMessage(ExceptionCode.USER_ALREADY_EXIST.getMessage());
-
-            then(userRepository)
-                    .should()
-                    .findByEmail(email);
-        }
-
-        @Test
-        @DisplayName("회원이 존재하지 않는다.")
-        void notExist() {
-            // given
-            String email = "email";
-            given(userRepository.findByEmail(email))
-                    .willReturn(Optional.empty());
-
-            // when
-            userPersistenceAdapter.existUserByEmail(email);
-
-            then(userRepository)
-                    .should()
-                    .findByEmail(email);
-        }
-
     }
 }
