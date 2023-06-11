@@ -1,4 +1,4 @@
-package com.borrow.system.appitem.appborrow;
+package com.borrow.system.appborrow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
