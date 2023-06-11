@@ -1,0 +1,12 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    runtimeOnly 'com.h2database:h2'
+    implementation project(':app-organization')
+    implementation project(':app-category')
+    implementation project(':app-user-management')
+    implementation project(':app-item')
+    implementation project(':module-core')
+    implementation project(':module-common')
+}

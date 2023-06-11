@@ -7,8 +7,9 @@ public enum ExceptionCode {
     ORGANIZATION_NOT_FOUND(404, "ORGANIZATION_NOT_FOUND"),
     ITEM_NOT_FOUND(404, "ITEM_NOT_FOUND"),
     ITEM_ALREADY_BORROW(409, "ITEM_ALREADY_BORROW"),
-    NO_PERMISSION(403, "NO_PERMISSION")
-    ;
+    NO_PERMISSION(403, "NO_PERMISSION"),
+    NOT_BORROW_YET(404, "NOT_BORROW_YET"),
+    BORROW_NOT_FOUND(404, "BORROW_NOT_FOUND");
 
     private final int status;
     private final String message;
