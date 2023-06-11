@@ -1,11 +1,11 @@
-package com.borrow.system.appitem.appborrow.application;
+package com.borrow.system.appborrow.application;
 
-import com.borrow.system.appitem.appborrow.application.port.in.DeleteBorrowUseCase;
-import com.borrow.system.appitem.appborrow.application.port.in.DeletePort;
-import com.borrow.system.appitem.appborrow.application.port.in.SaveBorrowUseCase;
-import com.borrow.system.appitem.appborrow.application.port.in.SavePort;
-import com.borrow.system.appitem.appborrow.application.port.out.LoadBorrowUseCase;
-import com.borrow.system.appitem.appborrow.application.port.out.LoadPort;
+import com.borrow.system.appborrow.application.port.in.DeleteBorrowUseCase;
+import com.borrow.system.appborrow.application.port.in.DeletePort;
+import com.borrow.system.appborrow.application.port.in.SaveBorrowUseCase;
+import com.borrow.system.appborrow.application.port.in.SavePort;
+import com.borrow.system.appborrow.application.port.out.LoadBorrowUseCase;
+import com.borrow.system.appborrow.application.port.out.LoadPort;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecommon.exception.ExceptionCode;
 import com.borrow.system.modulecore.domain.borrow.Borrow;
