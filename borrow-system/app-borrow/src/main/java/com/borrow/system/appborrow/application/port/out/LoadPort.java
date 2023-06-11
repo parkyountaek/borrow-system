@@ -1,4 +1,4 @@
-package com.borrow.system.appitem.appborrow.application.port.out;
+package com.borrow.system.appborrow.application.port.out;
 
 import com.borrow.system.modulecore.domain.borrow.Borrow;
 
