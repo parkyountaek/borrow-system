@@ -1,9 +1,9 @@
-package com.borrow.system.appitem.appborrow.application;
+package com.borrow.system.appborrow.application;
 
-import com.borrow.system.appitem.appborrow.application.port.in.DeletePort;
-import com.borrow.system.appitem.appborrow.application.port.in.SavePort;
-import com.borrow.system.appitem.appborrow.application.port.out.LoadPort;
-import com.borrow.system.appitem.appborrow.config.TestConfig;
+import com.borrow.system.appborrow.application.port.in.DeletePort;
+import com.borrow.system.appborrow.application.port.in.SavePort;
+import com.borrow.system.appborrow.application.port.out.LoadPort;
+import com.borrow.system.appborrow.config.TestConfig;
 import com.borrow.system.modulecommon.exception.BusinessLogicException;
 import com.borrow.system.modulecore.domain.borrow.Borrow;
 import com.borrow.system.modulecore.domain.category.Category;

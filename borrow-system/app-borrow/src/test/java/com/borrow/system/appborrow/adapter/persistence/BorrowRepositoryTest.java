@@ -1,8 +1,8 @@
-package com.borrow.system.appitem.appborrow.adapter.persistence;
+package com.borrow.system.appborrow.adapter.persistence;
 
+import com.borrow.system.appborrow.config.TestConfig;
 import com.borrow.system.appcategory.adaptor.persistence.CategoryRepository;
 import com.borrow.system.appitem.adapter.persistence.ItemRepository;
-import com.borrow.system.appitem.appborrow.config.TestConfig;
 import com.borrow.system.apporganization.adapter.persistence.OrganizationRepository;
 import com.borrow.system.appusermanagement.adapter.persistence.UserRepository;
 import com.borrow.system.modulecore.domain.borrow.Borrow;

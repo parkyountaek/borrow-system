@@ -1,12 +1,11 @@
-package com.borrow.system.appitem.appborrow.adapter.persistence;
+package com.borrow.system.appborrow.adapter.persistence;
 
-import com.borrow.system.appitem.appborrow.config.TestConfig;
+import com.borrow.system.appborrow.config.TestConfig;
 import com.borrow.system.modulecore.domain.borrow.Borrow;
 import com.borrow.system.modulecore.domain.category.Category;
 import com.borrow.system.modulecore.domain.item.Item;
 import com.borrow.system.modulecore.domain.organization.Organization;
 import com.borrow.system.modulecore.domain.user.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.doNothing;
