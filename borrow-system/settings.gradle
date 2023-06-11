@@ -5,4 +5,5 @@ include 'module-common'
 include 'app-category'
 include 'app-organization'
 include 'app-item'
+include 'app-borrow'
 
